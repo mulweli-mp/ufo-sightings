@@ -6,7 +6,7 @@ export default function CustomStatusBar() {
 	const insets = useSafeAreaInsets();
 	const colors = useThemeColor();
 	const backgroundColor =
-		colors.themeName === "dark" ? "#1c1c1e" : colors.primary;
+		colors.themeName === "dark" ? colors.background : colors.primary;
 
 	return (
 		<View

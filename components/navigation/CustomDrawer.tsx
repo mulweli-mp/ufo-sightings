@@ -16,6 +16,7 @@ import {
 
 import { DEVICE_HEIGHT } from "@/constants/Dimensions";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { appVersion } from "@/utilities/getVersionNumber";
 import { JSX } from "react";
 import { CustomStatusBar, ThemedText, ThemedView } from "../general";
 
@@ -25,8 +26,6 @@ type MenuOption = {
 	navigationScreen?: any;
 	icon: JSX.Element;
 };
-
-const appVersion = "1.0.0";
 
 export default function CustomDrawer() {
 	const colors = useThemeColor();
@@ -161,7 +160,6 @@ const styles = StyleSheet.create({
 	},
 	profileDetails: {
 		justifyContent: "center",
-
 		flex: 1,
 	},
 	detailsText: {
