@@ -77,6 +77,7 @@ A sleek, interactive UFO sightings dashboard built with [Expo](https://expo.dev)
 
 - **Expo Go** (for physical device testing)
 - **iOS Simulator / Android Emulator**
+- [Or download compliled apk file and install on an android device without cloning the repo](https://drive.google.com/file/d/13IsHxkCiHMo2F0edDnirl8EsfOV9CvFo/view?usp=sharing)
 
   
 # 📄 Notes & Decisions
