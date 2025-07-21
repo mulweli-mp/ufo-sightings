@@ -87,7 +87,7 @@ A sleek, interactive UFO sightings dashboard built with [Expo](https://expo.dev)
 - Missing dates are automatically filled with zeros for clean weekly charts.
 - UI is designed mobile-first and handles edge cases gracefully.
 
-# [🔥Download Android Apk File to see the app in action](https://drive.google.com/file/d/13IsHxkCiHMo2F0edDnirl8EsfOV9CvFo/view?usp=sharing)
+# 🔥Download Android Apk File to see the app in action
 [Link to APK file hosted in Google Drive](https://drive.google.com/file/d/13IsHxkCiHMo2F0edDnirl8EsfOV9CvFo/view?usp=sharing)
 
 
