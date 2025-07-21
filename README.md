@@ -1,50 +1,102 @@
-# Welcome to your Expo app 👋
+# 🛸 UFO Sightings Dashboard
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A sleek, interactive UFO sightings dashboard built with [Expo](https://expo.dev) and React Native.
 
-## Get started
+> 📱 This mini project showcases my ability to build well-structured, readable code with a smooth and intuitive UX as well as strong familiarity with Expo, charts, and React Native best practices, all backed by solid TypeScript architecture.
 
-1. Install dependencies
+---
 
+## 🚀 Features
+
+- 📊 **Weekly Bar Chart of UFO Sightings**  
+  Visualize daily UFO sightings grouped by **calendar weeks (Monday–Sunday)**.
+
+- ⏮️⏭️ **Week Navigation**  
+  Seamlessly browse **previous and next weeks** with animated transitions.
+
+- 📆 **Handles Missing Dates Gracefully**  
+  Even when data is missing for some days, bars with value 0 are rendered for a complete week view.
+
+- 🌐 **Live API Integration**  
+  Data is dynamically fetched from the API:
+  [https://my-json-server.typicode.com/Louis-Procode/ufo-Sightings/ufoSightings](https://my-json-server.typicode.com/Louis-Procode/ufo-Sightings/ufoSightings)
+
+- 🧭 **Animated Transitions**  
+  Chart slides in horizontally as you switch weeks.
+
+- 🧠 **Global State Management**  
+  Powered by [Redux Toolkit](https://redux-toolkit.js.org) for predictable and scalable state handling.
+
+- 🔄 **Reusable Hooks & Services**  
+  Modular and easy-to-maintain architecture.
+
+- 📱 **Fully Mobile Optimized**  
+  Smooth, responsive layout across different screen sizes.
+  
+- 📱 **Theme Support**  
+  Switch between light mode and dark mode
+
+- 📱 **Offline Support**  
+  Data is still available even when the device does not have access to internet, provided it was cached at least once
+
+- 💥 **Bonus Features**  
+  - Loading indicators ✅  
+  - Error and empty states ✅
+  - Type-safe with TypeScript ✅
+  - Redux Toolkit ✅
+
+---
+
+## 🛠️ Tech Stack
+
+- **React Native + Expo**
+- **TypeScript**
+- **Redux Toolkit**
+  
+- **react-native-chart-kit** (bar chart)
+- **Axios** (for API calls)
+- **Date-fns** (date manipulation)
+- **Lottie Animation**
+- **React Navigation**
+
+---
+
+## 📦 Setup & Run
+
+1. **Install dependencies**
    ```bash
    npm install
    ```
-
-2. Start the app
+2. **Start the app**
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+3. **Open it via:**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Expo Go** (for physical device testing)
+- **iOS Simulator / Android Emulator**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+  
+# 📄 Notes & Decisions
 
-## Get a fresh project
+- `date-fns` is used to group data by ISO calendar weeks (Monday–Sunday).
+- `reduxjs/toolkit` manages current week state and sightings data.
+- Missing dates are automatically filled with zeros for clean weekly charts.
+- UI is designed mobile-first and handles edge cases gracefully.
 
-When you're ready, run:
+# [🔥Download Android Apk File to see the app in action](https://drive.google.com/file/d/13IsHxkCiHMo2F0edDnirl8EsfOV9CvFo/view?usp=sharing)
+[Link to APK file hosted in Google Drive](https://drive.google.com/file/d/13IsHxkCiHMo2F0edDnirl8EsfOV9CvFo/view?usp=sharing)
 
-```bash
-npm run reset-project
-```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+  
+<img width="391" height="851" alt="Screenshot 2025-07-21 at 10 21 05" src="https://github.com/user-attachments/assets/b5047c76-be49-41fa-846a-4779eea7f4c2" />
+<img width="360" height="823" alt="Screenshot 2025-07-21 at 10 23 17" src="https://github.com/user-attachments/assets/bd886a77-0efa-4234-be6d-e932eb318f44" />
 
-## Learn more
+<img width="393" height="846" alt="Screenshot 2025-07-21 at 10 21 26" src="https://github.com/user-attachments/assets/3a9b82c0-af0a-4722-84bb-ddb4c6cf337f" />
+<img width="361" height="824" alt="Screenshot 2025-07-21 at 10 22 37" src="https://github.com/user-attachments/assets/98bbc800-908b-47cf-a0f2-4b26223134b2" />
 
-To learn more about developing your project with Expo, look at the following resources:
+ <img width="398" height="852" alt="Screenshot 2025-07-21 at 10 21 43" src="https://github.com/user-attachments/assets/1faab6a4-b09a-4fda-830c-00fb7c59bbb0" />
+<img width="359" height="824" alt="Screenshot 2025-07-21 at 10 22 58" src="https://github.com/user-attachments/assets/74b6e586-f78b-4ac1-b522-7ebd5a33eb10" />
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
