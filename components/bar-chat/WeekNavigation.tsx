@@ -1,4 +1,5 @@
-import { Button, View } from "react-native";
+import { Button } from "@/components/general";
+import { View } from "react-native";
 
 type Props = {
 	onPrev: () => void;
@@ -13,9 +14,11 @@ export const WeekNavigation: React.FC<Props> = ({
 	disablePrev,
 	disableNext,
 }) => (
-	<View style={{ flexDirection: "row", marginTop: 16 }}>
-		<Button title="⏮ Prev" disabled={disablePrev} onPress={onPrev} />
+	<View
+		style={{ flexDirection: "row", marginTop: 16, justifyContent: "center" }}
+	>
+		<Button title="⏮ Prev 👽" onPress={onPrev} disabled={disablePrev} />
 		<View style={{ width: 16 }} />
-		<Button title="Next ⏭" disabled={disableNext} onPress={onNext} />
+		<Button title="👽 Next ⏭" onPress={onNext} disabled={disableNext} />
 	</View>
 );

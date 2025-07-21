@@ -1,8 +1,7 @@
+import { Sighting } from "@/types";
 import { format, parse, startOfWeek } from "date-fns";
 
-type Entry = { date: string; sightings: number };
-
-export function groupSightingsByWeek(data: Entry[]) {
+export function groupSightingsByWeek(data: Sighting[]) {
 	const parsed = data
 		.map(({ date, sightings }) => ({
 			date: parse(date, "dd/MM/yyyy", new Date()),

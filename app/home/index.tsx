@@ -1,20 +1,28 @@
-import { useEffect, useRef, useState } from "react";
-import { Animated, Dimensions } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Animated } from "react-native";
 
 import {
+	OfflineNotice,
+	SpaceshipAnimation,
 	WeeklyChart,
 	WeeklyHeader,
 	WeekNavigation,
 } from "@/components/bar-chat";
 
-import { Header, ThemedView } from "@/components/general";
+import {
+	ErrorMessage,
+	Header,
+	LoadingIndicator,
+	ThemedView,
+} from "@/components/general";
 
-import { data } from "@/constants/Data";
+import { DEVICE_WIDTH } from "@/constants/Dimensions";
+import { useSightings } from "@/hooks/useSightings";
 import { groupSightingsByWeek } from "@/utilities/groupSightingsByWeek";
 
-const screenWidth = Dimensions.get("window").width;
+export default function HomeScreen() {
+	const { data, loading, error, isOfflineData } = useSightings();
 
-export default function Index() {
 	const [weekIndex, setWeekIndex] = useState(0);
 	const [weeklyData, setWeeklyData] = useState<any[]>([]);
 	const [weekKeys, setWeekKeys] = useState<string[]>([]);
@@ -23,18 +31,20 @@ export default function Index() {
 	const [direction, setDirection] = useState(0);
 
 	useEffect(() => {
+		if (!data || data.length === 0) return;
+
 		const grouped = groupSightingsByWeek(data);
 		const keys = Object.keys(grouped);
 		setWeekKeys(keys);
 		setWeeklyData(keys.map((key) => grouped[key]));
-	}, []);
+	}, [data]);
 
 	useEffect(() => {
 		if (direction === 0) {
 			slideAnim.setValue(0);
 			return;
 		}
-		slideAnim.setValue(direction * screenWidth);
+		slideAnim.setValue(direction * DEVICE_WIDTH);
 		Animated.timing(slideAnim, {
 			toValue: 0,
 			duration: 400,
@@ -45,7 +55,7 @@ export default function Index() {
 	const handlePrev = () => {
 		if (weekIndex <= 0) return;
 		Animated.timing(slideAnim, {
-			toValue: screenWidth,
+			toValue: DEVICE_WIDTH,
 			duration: 400,
 			useNativeDriver: true,
 		}).start(() => {
@@ -57,7 +67,7 @@ export default function Index() {
 	const handleNext = () => {
 		if (weekIndex >= weeklyData.length - 1) return;
 		Animated.timing(slideAnim, {
-			toValue: -screenWidth,
+			toValue: -DEVICE_WIDTH,
 			duration: 400,
 			useNativeDriver: true,
 		}).start(() => {
@@ -69,19 +79,25 @@ export default function Index() {
 	const currentWeekData = weeklyData[weekIndex] || {};
 	const currentWeekKey = weekKeys[weekIndex];
 
+	if (loading) return <LoadingIndicator />;
+	if (error) return <ErrorMessage message={error} />;
+
 	return (
 		<ThemedView style={{ flex: 1, alignItems: "center" }}>
 			<Header type="homeHeader" />
+			{isOfflineData && <OfflineNotice />}
 			<WeeklyHeader weekKey={currentWeekKey} />
 			{Object.keys(currentWeekData).length > 0 && (
 				<WeeklyChart data={currentWeekData} animation={slideAnim} />
 			)}
+
 			<WeekNavigation
 				onPrev={handlePrev}
 				onNext={handleNext}
 				disablePrev={weekIndex <= 0}
 				disableNext={weekIndex >= weeklyData.length - 1}
 			/>
+			<SpaceshipAnimation />
 		</ThemedView>
 	);
 }

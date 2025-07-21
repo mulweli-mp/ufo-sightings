@@ -1,7 +1,7 @@
-import { Animated, Dimensions } from "react-native";
+import { DEVICE_WIDTH } from "@/constants/Dimensions";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { Animated } from "react-native";
 import { BarChart } from "react-native-chart-kit";
-
-const screenWidth = Dimensions.get("window").width;
 
 type Props = {
 	data: { [day: string]: number };
@@ -9,11 +9,13 @@ type Props = {
 };
 
 export const WeeklyChart: React.FC<Props> = ({ data, animation }) => {
+	const colors = useThemeColor();
+
 	return (
 		<Animated.View
 			style={{
 				transform: [{ translateX: animation }],
-				width: screenWidth - 40,
+				width: DEVICE_WIDTH - 40,
 			}}
 		>
 			<BarChart
@@ -21,7 +23,7 @@ export const WeeklyChart: React.FC<Props> = ({ data, animation }) => {
 					labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 					datasets: [{ data: Object.values(data) }],
 				}}
-				width={screenWidth - 40}
+				width={DEVICE_WIDTH - 40}
 				height={220}
 				yAxisLabel=""
 				yAxisSuffix=""
@@ -29,10 +31,10 @@ export const WeeklyChart: React.FC<Props> = ({ data, animation }) => {
 				fromZero
 				chartConfig={{
 					backgroundColor: "#fff",
-					backgroundGradientFrom: "#fff",
-					backgroundGradientTo: "#fff",
-					color: (opacity = 1) => `rgba(0, 122, 255, ${opacity})`,
-					barPercentage: 0.5,
+					backgroundGradientFrom: "#000000",
+					backgroundGradientTo: colors.primary,
+					color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+					barPercentage: 0.7,
 				}}
 				style={{ borderRadius: 8 }}
 			/>

@@ -1,9 +1,7 @@
 import {
-	AntDesign,
 	Entypo,
 	FontAwesome5,
 	MaterialCommunityIcons,
-	MaterialIcons,
 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import {
@@ -17,6 +15,7 @@ import {
 import { DEVICE_HEIGHT } from "@/constants/Dimensions";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { appVersion } from "@/utilities/getVersionNumber";
+import LottieView from "lottie-react-native";
 import { JSX } from "react";
 import { CustomStatusBar, ThemedText, ThemedView } from "../general";
 
@@ -35,32 +34,20 @@ export default function CustomDrawer() {
 			optionName: "Home",
 			key: "home",
 			navigationScreen: "/home",
-			icon: (
-				<MaterialCommunityIcons
-					name="home-heart"
-					size={32}
-					color={colors.primary}
-				/>
-			),
+			icon: <FontAwesome5 name="home" size={24} color={colors.primary} />,
 		},
 
 		{
 			optionName: "Theme",
 			key: "theme",
-			icon: <FontAwesome5 name="car" size={24} color={colors.primary} />,
-		},
-
-		{
-			optionName: "Settings",
-			key: "help",
-			navigationScreen: "/home/on-boarding",
-			icon: <AntDesign name="setting" size={24} color={colors.primary} />,
-		},
-
-		{
-			optionName: "Sign Out",
-			key: "sign-out",
-			icon: <MaterialIcons name="logout" size={24} color={colors.primary} />,
+			navigationScreen: "/theme",
+			icon: (
+				<MaterialCommunityIcons
+					name="theme-light-dark"
+					size={24}
+					color={colors.primary}
+				/>
+			),
 		},
 	];
 
@@ -69,12 +56,17 @@ export default function CustomDrawer() {
 			<CustomStatusBar />
 			<View style={styles.profileContainer}>
 				<Image
-					source={require("@/assets/images/default-profile.jpg")}
+					source={
+						colors.themeName === "dark"
+							? require("@/assets/images/alien.png")
+							: require("@/assets/images/seagull.png")
+					}
 					style={styles.profileImage}
 				/>
 				<View style={styles.profileDetails}>
-					<ThemedText style={styles.detailsText}>Mulweli Patson</ThemedText>
-					<ThemedText style={styles.usernameText}>Mushiana</ThemedText>
+					<ThemedText style={styles.usernameText}>
+						{colors.themeName === "dark" ? "Space Cadet" : "Earthling"}
+					</ThemedText>
 				</View>
 			</View>
 			<ScrollView
@@ -108,6 +100,15 @@ export default function CustomDrawer() {
 						</TouchableOpacity>
 					)
 				)}
+
+				<View style={styles.spaceContainer}>
+					<LottieView
+						source={require("@/assets/lottie/space-runner.json")}
+						autoPlay
+						loop
+						style={{ width: DEVICE_HEIGHT * 0.3, height: DEVICE_HEIGHT * 0.3 }}
+					/>
+				</View>
 			</ScrollView>
 			<View style={styles.appVersionContainer}>
 				<ThemedText style={styles.versionText}>{appVersion}</ThemedText>
@@ -152,9 +153,9 @@ const styles = StyleSheet.create({
 	},
 	profileImage: {
 		backgroundColor: "grey",
-		height: DEVICE_HEIGHT * 0.04,
-		width: DEVICE_HEIGHT * 0.04,
-		borderRadius: (DEVICE_HEIGHT * 0.04) / 2,
+		height: DEVICE_HEIGHT * 0.06,
+		width: DEVICE_HEIGHT * 0.06,
+		borderRadius: (DEVICE_HEIGHT * 0.06) / 2,
 		marginLeft: 15,
 		marginRight: 5,
 	},
@@ -162,8 +163,9 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		flex: 1,
 	},
-	detailsText: {
+	usernameText: {
 		fontWeight: "bold",
+		fontSize: 17,
 	},
 	appVersionContainer: {
 		width: "95%",
@@ -174,7 +176,10 @@ const styles = StyleSheet.create({
 		fontSize: 10,
 		margin: 7,
 	},
-	usernameText: {
-		fontWeight: "500",
+	spaceContainer: {
+		minHeight: DEVICE_HEIGHT * 0.4,
+		width: "100%",
+		justifyContent: "center",
+		alignItems: "center",
 	},
 });
