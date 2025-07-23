@@ -3,6 +3,7 @@ import {
 	getSightingsFromCache,
 	saveSightingsToCache,
 } from "@/features/sightings/sightingsService";
+import { AppDispatch } from "@/store/store";
 import { Sighting } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -20,19 +21,31 @@ const initialState: SightingsState = {
 	isOfflineData: false,
 };
 
+const loadAndDispatchCachedData = async (dispatch: AppDispatch) => {
+	const cached = await getSightingsFromCache();
+	if (cached && cached.length > 0) {
+		dispatch(
+			getSightings.fulfilled({ data: cached, isOffline: true }, "", undefined)
+		);
+	}
+};
+
+// Thunk: fetch data from API, fallback to cache if failed
 export const getSightings = createAsyncThunk<
 	{ data: Sighting[]; isOffline: boolean },
 	void,
-	{ rejectValue: string }
->("sightings/getSightings", async (_, { rejectWithValue }) => {
+	{ dispatch: AppDispatch; rejectValue: string }
+>("sightings/getSightings", async (_, { dispatch, rejectWithValue }) => {
 	try {
-		const data = await fetchSightings();
-		await saveSightingsToCache(data);
+		await loadAndDispatchCachedData(dispatch); // Show cached data instantly
+
+		const data = await fetchSightings(); // Try to fetch fresh data
+		await saveSightingsToCache(data); // Cache fresh data
 		return { data, isOffline: false };
-	} catch (err) {
+	} catch {
 		const cached = await getSightingsFromCache();
-		if (cached) {
-			return { data: cached, isOffline: true };
+		if (cached && cached.length > 0) {
+			return { data: cached, isOffline: true }; // Fallback to cache
 		}
 		return rejectWithValue(
 			"Failed to fetch sightings and no offline data available"
@@ -40,6 +53,7 @@ export const getSightings = createAsyncThunk<
 	}
 });
 
+// Slice
 const sightingsSlice = createSlice({
 	name: "sightings",
 	initialState,
